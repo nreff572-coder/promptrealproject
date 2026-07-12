@@ -8,27 +8,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
 
     <style>
       /* ==================== VARIABLES ==================== */
       :root {
-        --bg-body: #fafafa;
+        --bg-body: #f8f9fa;
         --bg-card: #ffffff;
         --text-main: #111111;
-        --text-muted: #666666;
-        --border-color: #eeeeee;
+        --text-muted: #6b7280;
+        --border-color: #e5e7eb;
         --btn-bg: #111111;
         --btn-hover: #333333;
         --btn-text: #ffffff;
-        --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
-        --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.08);
-        --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.15);
         --radius-card: 16px;
         --radius-btn: 8px;
-        --transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
       }
 
       /* ==================== RESET & BASE ==================== */
@@ -39,186 +35,119 @@
         -webkit-tap-highlight-color: transparent;
       }
 
-      html {
-        scroll-behavior: smooth;
-      }
-
       body {
         font-family: "Poppins", sans-serif;
         background-color: var(--bg-body);
         color: var(--text-main);
-        line-height: 1.6;
+        line-height: 1.5;
+        padding-bottom: 40px;
       }
 
-      /* Modern Scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: var(--bg-body);
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #cccccc;
-        border-radius: 10px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #999999;
-      }
-
-      /* ==================== LAYOUT ==================== */
+      /* ==================== HEADER ==================== */
       header {
         text-align: center;
-        padding: 60px 20px 40px;
-        max-width: 800px;
+        padding: 40px 20px 30px;
+        max-width: 600px;
         margin: 0 auto;
-      }
-
-      header h1 {
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin-bottom: 10px;
-        letter-spacing: -0.5px;
       }
 
       header p {
         color: var(--text-muted);
-        font-size: 1.1rem;
-        font-weight: 300;
-      }
-
-      main {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px 80px;
+        font-size: 1rem;
+        font-weight: 400;
       }
 
       /* ==================== GALLERY GRID ==================== */
-      .gallery-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 30px;
+      main {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 16px;
       }
 
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 Kolom untuk HP */
+        gap: 16px;
+      }
+
+      @media (min-width: 768px) {
+        .gallery-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 24px;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .gallery-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
+      /* ==================== CARD ==================== */
       .card {
         background: var(--bg-card);
         border-radius: var(--radius-card);
         overflow: hidden;
-        box-shadow: var(--shadow-sm);
-        transition:
-          transform var(--transition),
-          box-shadow var(--transition);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
         cursor: pointer;
         display: flex;
         flex-direction: column;
         border: 1px solid var(--border-color);
+        transition: transform 0.2s ease;
       }
 
-      .card:hover {
-        transform: translateY(-5px) scale(1.01);
-        box-shadow: var(--shadow-md);
+      .card:active {
+        transform: scale(0.98);
       }
 
-      /* Skeleton Loading Animation */
-      @keyframes shimmer {
-        0% {
-          background-position: -200% 0;
-        }
-        100% {
-          background-position: 200% 0;
-        }
-      }
-
-      .card-image-wrapper {
-        position: relative;
+      .card-img {
         width: 100%;
-        padding-top: 100%; /* 1:1 Aspect Ratio */
-        background: linear-gradient(
-          90deg,
-          #eeeeee 25%,
-          #f5f5f5 50%,
-          #eeeeee 75%
-        );
-        background-size: 200% 100%;
-        animation: shimmer 1.5s infinite;
-        overflow: hidden;
-      }
-
-      .card-image-wrapper img {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        aspect-ratio: 4/5;
         object-fit: cover;
-        opacity: 0;
-        transition: opacity 0.5s ease;
-      }
-
-      .card-image-wrapper img.loaded {
-        opacity: 1;
+        background: #eee;
       }
 
       .card-content {
-        padding: 20px;
+        padding: 12px;
         display: flex;
         flex-direction: column;
         flex-grow: 1;
-        justify-content: space-between;
       }
 
       .card-title {
-        font-size: 1.1rem;
+        font-size: 0.9rem;
         font-weight: 600;
-        margin-bottom: 15px;
-        line-height: 1.4;
+        margin-bottom: 12px;
+        color: var(--text-main);
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
       }
 
-      /* ==================== BUTTONS & RIPPLE ==================== */
+      /* ==================== BUTTONS ==================== */
       .btn {
         background-color: var(--btn-bg);
         color: var(--btn-text);
         border: none;
-        padding: 12px 20px;
+        padding: 10px;
         border-radius: var(--radius-btn);
         font-family: "Poppins", sans-serif;
         font-weight: 500;
-        font-size: 0.95rem;
+        font-size: 0.85rem;
         cursor: pointer;
-        transition: background-color var(--transition);
         display: inline-flex;
         align-items: center;
         justify-content: center;
         gap: 8px;
         width: 100%;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .btn:hover {
-        background-color: var(--btn-hover);
+        margin-top: auto;
       }
 
       .btn svg {
-        width: 18px;
-        height: 18px;
+        width: 16px;
+        height: 16px;
         fill: currentColor;
-      }
-
-      /* Ripple Effect */
-      .ripple {
-        position: absolute;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.4);
-        transform: scale(0);
-        animation: ripple-animation 0.6s linear;
-        pointer-events: none;
-      }
-
-      @keyframes ripple-animation {
-        to {
-          transform: scale(4);
-          opacity: 0;
-        }
       }
 
       /* ==================== MODAL ==================== */
@@ -228,17 +157,14 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.6);
-        backdrop-filter: blur(5px);
+        background: rgba(0, 0, 0, 0.7);
         z-index: 1000;
         display: flex;
         align-items: center;
         justify-content: center;
         opacity: 0;
         visibility: hidden;
-        transition:
-          opacity var(--transition),
-          visibility var(--transition);
+        transition: 0.3s ease;
         padding: 20px;
       }
 
@@ -251,194 +177,133 @@
         background: var(--bg-card);
         border-radius: var(--radius-card);
         width: 100%;
-        max-width: 900px;
+        max-width: 500px;
         max-height: 90vh;
         overflow-y: auto;
-        box-shadow: var(--shadow-lg);
-        display: grid;
-        grid-template-columns: 1.2fr 1fr;
-        transform: scale(0.95);
-        transition: transform var(--transition);
         position: relative;
-      }
-
-      .modal-overlay.active .modal-content {
-        transform: scale(1);
-      }
-
-      .modal-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        background: #eee;
-        min-height: 300px;
-      }
-
-      .modal-body {
-        padding: 40px;
+        transform: translateY(20px);
+        transition: 0.3s ease;
         display: flex;
         flex-direction: column;
       }
 
+      .modal-overlay.active .modal-content {
+        transform: translateY(0);
+      }
+
+      /* Modal Close Button */
       .modal-close {
         position: absolute;
-        top: 20px;
-        right: 20px;
-        background: rgba(0, 0, 0, 0.05);
+        top: 15px;
+        right: 15px;
+        background: rgba(0, 0, 0, 0.5);
         border: none;
-        width: 40px;
-        height: 40px;
+        width: 32px;
+        height: 32px;
         border-radius: 50%;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: background var(--transition);
         z-index: 10;
       }
-
-      .modal-close:hover {
-        background: rgba(0, 0, 0, 0.1);
+      .modal-close svg {
+        width: 18px;
+        height: 18px;
+        fill: white;
       }
 
-      .modal-close svg {
-        width: 20px;
-        height: 20px;
-        fill: var(--text-main);
+      /* Before/After Image Section inside Modal */
+      .modal-images {
+        display: flex;
+        width: 100%;
+        height: 250px;
+      }
+      .modal-img-wrapper {
+        flex: 1;
+        position: relative;
+        height: 100%;
+      }
+      .modal-img-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .modal-img-wrapper .badge {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.6);
+        color: white;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .modal-body {
+        padding: 24px;
       }
 
       .modal-title {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         font-weight: 700;
         margin-bottom: 20px;
-        padding-right: 30px;
       }
 
       .modal-prompt-label {
-        font-size: 0.85rem;
+        font-size: 0.75rem;
         text-transform: uppercase;
         letter-spacing: 1px;
         color: var(--text-muted);
-        margin-bottom: 8px;
+        margin-bottom: 10px;
         font-weight: 600;
       }
 
       .modal-prompt-text {
-        background: var(--bg-body);
-        padding: 20px;
+        background: #f9fafb;
+        padding: 16px;
         border-radius: 8px;
         border: 1px solid var(--border-color);
-        font-size: 0.95rem;
-        color: var(--text-muted);
-        margin-bottom: 30px;
-        flex-grow: 1;
-        line-height: 1.7;
+        font-size: 0.9rem;
+        color: #4b5563;
+        margin-bottom: 24px;
+        line-height: 1.6;
       }
 
       /* ==================== TOAST NOTIFICATION ==================== */
       .toast {
         position: fixed;
-        bottom: 30px;
-        right: 30px;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%) translateY(100px);
         background: #111111;
         color: #ffffff;
-        padding: 16px 24px;
+        padding: 12px 24px;
         border-radius: 50px;
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         font-weight: 500;
         display: flex;
         align-items: center;
         gap: 10px;
-        box-shadow: var(--shadow-lg);
-        transform: translateY(100px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         opacity: 0;
-        transition:
-          transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55),
-          opacity 0.4s ease;
+        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         z-index: 2000;
+        white-space: nowrap;
       }
 
       .toast.show {
-        transform: translateY(0);
+        transform: translateX(-50%) translateY(0);
         opacity: 1;
-      }
-
-      /* ==================== RESPONSIVE (TABLET & MOBILE) ==================== */
-      @media (max-width: 768px) {
-        header h1 {
-          font-size: 2rem;
-        }
-        .modal-content {
-          grid-template-columns: 1fr;
-          max-height: 95vh;
-        }
-        .modal-image {
-          height: 300px;
-          min-height: auto;
-        }
-        .modal-body {
-          padding: 24px;
-        }
-        .toast {
-          bottom: 20px;
-          right: 20px;
-          left: 20px;
-          justify-content: center;
-        }
-      }
-
-      /* MOBILE SPECIFIC: Memaksa 2 Kolom Horisontal */
-      @media (max-width: 600px) {
-        header {
-          padding: 30px 15px 20px;
-        }
-        header h1 {
-          font-size: 1.7rem;
-        }
-        header p {
-          font-size: 0.95rem;
-        }
-        main {
-          padding: 0 15px 60px;
-        }
-
-        /* Mengubah grid agar selalu 2 kolom di HP */
-        .gallery-grid {
-          grid-template-columns: repeat(2, 1fr);
-          gap: 12px; /* Jarak diperkecil agar pas */
-        }
-
-        .card-content {
-          padding: 12px;
-        }
-
-        .card-title {
-          font-size: 0.85rem;
-          margin-bottom: 10px;
-          /* Memotong judul panjang menjadi 2 baris dengan titik-titik */
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-
-        .btn {
-          padding: 8px 10px;
-          font-size: 0.75rem; /* Ukuran tombol disesuaikan */
-          gap: 6px;
-          border-radius: 6px;
-        }
-
-        .btn svg {
-          width: 14px;
-          height: 14px;
-        }
       }
     </style>
   </head>
   <body>
     <header>
-      <h1>AI Prompt Gallery</h1>
       <p>
         Temukan inspirasi dan salin prompt foto berkualitas tinggi dengan satu
         klik.
@@ -447,27 +312,40 @@
 
     <main>
       <div class="gallery-grid" id="galleryGrid">
-        <!-- Cards otomatis di-render oleh JavaScript -->
+        <!-- Cards akan di-generate via JavaScript -->
       </div>
     </main>
 
-    <!-- Modal Layout -->
+    <!-- Modal Background -->
     <div class="modal-overlay" id="modalOverlay">
-      <div class="modal-content" id="modalContent">
-        <button class="modal-close" id="modalClose" aria-label="Tutup modal">
+      <!-- Modal Content -->
+      <div class="modal-content">
+        <button class="modal-close" id="modalClose" aria-label="Tutup">
           <svg viewBox="0 0 24 24">
             <path
               d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
             />
           </svg>
         </button>
-        <img class="modal-image" id="modalImage" src="" alt="Preview Gambar" />
-        <div class="modal-body">
-          <h2 class="modal-title" id="modalTitle">Judul</h2>
-          <div class="modal-prompt-label">Prompt Lengkap</div>
-          <div class="modal-prompt-text" id="modalPromptText">
-            Teks prompt di sini...
+
+        <!-- Area Before & After di dalam Modal -->
+        <div class="modal-images">
+          <div class="modal-img-wrapper">
+            <img id="mImgBefore" src="" alt="Before" />
+            <div class="badge">Before</div>
           </div>
+          <div class="modal-img-wrapper">
+            <img id="mImgAfter" src="" alt="After" />
+            <div class="badge">After</div>
+          </div>
+        </div>
+
+        <!-- Detail Modal -->
+        <div class="modal-body">
+          <h2 class="modal-title" id="mTitle">Judul</h2>
+          <div class="modal-prompt-label">PROMPT LENGKAP</div>
+          <div class="modal-prompt-text" id="mPrompt">Teks prompt...</div>
+
           <button class="btn" id="modalCopyBtn">
             <svg viewBox="0 0 24 24">
               <path
@@ -484,116 +362,120 @@
     <div class="toast" id="toast">✅ Prompt berhasil disalin</div>
 
     <script>
-      // ==================== DATA ====================
-      const promptData = [
+      // Data Foto & Prompt (Silakan ganti link gambar dengan yang sesuai)
+      const data = [
         {
           id: 1,
           title: "Cinematic Portrait",
-          image:
+          imgBefore:
+            "https://res.cloudinary.com/wtvjwbld/image/upload/v1783850605/as_hqmul7.jpg",
+          imgAfter:
             "https://res.cloudinary.com/wtvjwbld/image/upload/v1783838205/dark_cldx36.jpg",
           prompt:
             "A partir da minha foto crie uma imagem de Um homem em tronco nu, com cabelo levemente desordenado, de tonalidade castanha escura. Seu cabelo é iluminado intensamente desde trás, criando um halo luminoso dourado que contrasta fortemente com o fundo escuro. Expressão e pose: Ele gira o rosto para a câmera, com a mirada direta, mas parcialmente coberta pelas sombras. Sua boca é levemente solicitada, o que traz um ar expressivo e íntimo à tomada.",
         },
-      {
-                id: 2,
-                title: "Black & White Portrait",
-                image:
-                  "https://res.cloudinary.com/wtvjwbld/image/upload/v1783838594/black_k8l3ex.jpg",
-                prompt:
-                  "A black-and-white aesthetic portrait of a stylish me (use my image with accurate face 100%) standards on the in Wall dramatic lighting. He is wearing an oversized dark coat, with messy, voluminous hair partially covering his face. His pose is emotional and introspective, with one hand near his mouth and his head slightlytm turned to the side. Shadow from a window fall across the wall behind him, creating a moody and artistic atmosphere. The overall vibes is mysterious, emotional",
-              },
-            {
-                id:3,
-                title: "Outdoor Portrait",
-                image:
-                  "https://res.cloudinary.com/wtvjwbld/image/upload/v1783838936/putih_q9rtrd.jpg",
-                prompt:
-                  "Membuat retro seorang pria muda berdiri di depan dinding dengan mengenakan T-shirt wol putih longgar dan celana, jam tangan formal mewah, rambut seperti 90's film baddie. dengan satu tangan di saku celana dengan expresi wajah yang tenang dari tanaman anggur yang berbunga dengan satu tangan tangan lain di kepala tampak di cemera. Wajah 100% cocok dari gambar yang diunggah, lingkungan berangin hd mempertajam resolusi dengan sinar matahari dan bayangan",
-              },
         {
-                id:4,
-                title: "Street Portrait",
-                image:
-                  "https://res.cloudinary.com/wtvjwbld/image/upload/v1783839164/st_eii0yc.jpg",
-                prompt:
-                  "A hyper-realistic wide-angle smartphone selfie of a stylish young Asian (based on reference photo) in a deep squat using both feet flat on the ground, balanced evenly on a concrete sidewalk under an urban concrete overpass, positioned slightly closer to the gray corrugated metal wall on the right side of the frame. He has short, slightly messy black hair with stray strands catching the backlight, soft texture, light natural volume, modern masculine look. He is wearing a fully closed retro 1990s football-inspired bloccore track jacket in clean white with light grey panel blocks on the lower side waist, thin black or dark navy piping running from the raglan shoulders through the sleeves and lower panels, oversized relaxed fit, stand-up funnel neck collar with black piping, full-zip closure completely zipped up to the top, embroidered classic Umbro double diamond logo on the right chest in dark navy, a circular classic football-club style crest on the left chest with a gold star above and the word “PALACE” below",
-              }
+          id: 2,
+          title: "Black & White Portrait",
+          imgBefore:
+            "https://res.cloudinary.com/wtvjwbld/image/upload/v1783850605/as_hqmul7.jpg",
+          imgAfter:
+            "https://res.cloudinary.com/wtvjwbld/image/upload/v1783838594/black_k8l3ex.jpg",
+          prompt:
+            "A black-and-white aesthetic portrait of a stylish me (use my image with accurate face 100%) standards on the in Wall dramatic lighting. He is wearing an oversized dark coat, with messy, voluminous hair partially covering his face. His pose is emotional and introspective, with one hand near his mouth and his head slightlytm turned to the side. Shadow from a window fall across the wall behind him, creating a moody and artistic atmosphere. The overall vibes is mysterious, emotional",
+        },
+        {
+          id: 3,
+          title: "Outdoor Portrait",
+          imgBefore:
+            "https://res.cloudinary.com/wtvjwbld/image/upload/v1783850605/as_hqmul7.jpg",
+          imgAfter:
+            "https://res.cloudinary.com/wtvjwbld/image/upload/v1783838936/putih_q9rtrd.jpg",
+          prompt:
+            "Membuat retro seorang pria muda berdiri di depan dinding dengan mengenakan T-shirt wol putih longgar dan celana, jam tangan formal mewah, rambut seperti 90's film baddie. dengan satu tangan di saku celana dengan expresi wajah yang tenang dari tanaman anggur yang berbunga dengan satu tangan tangan lain di kepala tampak di cemera. Wajah 100% cocok dari gambar yang diunggah, lingkungan berangin hd mempertajam resolusi dengan sinar matahari dan bayangan",
+        },
+        {
+          id: 4,
+          title: "Street Portrait",
+          imgBefore: "https://res.cloudinary.com/wtvjwbld/image/upload/v1783850605/as_hqmul7.jpg",
+          imgAfter:
+            "https://res.cloudinary.com/wtvjwbld/image/upload/v1783839164/st_eii0yc.jpg",
+          prompt:
+            "A hyper-realistic wide-angle smartphone selfie of a stylish young Asian (based on reference photo) in a deep squat using both feet flat on the ground, balanced evenly on a concrete sidewalk under an urban concrete overpass, positioned slightly closer to the gray corrugated metal wall on the right side of the frame. He has short, slightly messy black hair with stray strands catching the backlight, soft texture, light natural volume, modern masculine look. He is wearing a fully closed retro 1990s football-inspired bloccore track jacket in clean white with light grey panel blocks on the lower side waist, thin black or dark navy piping running from the raglan shoulders through the sleeves and lower panels, oversized relaxed fit, stand-up funnel neck collar with black piping, full-zip closure completely zipped up to the top, embroidered classic Umbro double diamond logo on the right chest in dark navy, a circular classic football-club style crest on the left chest with a gold star above and the word “PALACE” below",
+        },
       ];
 
-      // ==================== DOM ELEMENTS ====================
-      const galleryGrid = document.getElementById("galleryGrid");
+      // Ikon Copy SVG
+      const copyIcon = `<svg viewBox="0 0 24 24"><path d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8C6.9 5 6 5.9 6 7v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>`;
+
+      // Element DOM
+      const grid = document.getElementById("galleryGrid");
       const modalOverlay = document.getElementById("modalOverlay");
       const modalClose = document.getElementById("modalClose");
-      const modalImage = document.getElementById("modalImage");
-      const modalTitle = document.getElementById("modalTitle");
-      const modalPromptText = document.getElementById("modalPromptText");
-      const modalCopyBtn = document.getElementById("modalCopyBtn");
       const toast = document.getElementById("toast");
-
       let toastTimeout;
 
-      // ==================== FUNCTIONS ====================
+      // Render Card ke Halaman
+      data.forEach((item) => {
+        const card = document.createElement("div");
+        card.className = "card";
 
-      // Render Cards to Gallery
-      function renderGallery() {
-        promptData.forEach((item) => {
-          const card = document.createElement("div");
-          card.className = "card";
-          card.dataset.id = item.id;
+        // Di halaman luar (grid), kita hanya menampilkan gambar 'After' sebagai cover
+        card.innerHTML = `
+                <img src="${item.imgAfter}" alt="${item.title}" class="card-img" loading="lazy">
+                <div class="card-content">
+                    <div class="card-title">${item.title}</div>
+                    <button class="btn copy-btn" data-prompt="${item.prompt}">
+                        ${copyIcon} Copy Prompt
+                    </button>
+                </div>
+            `;
 
-          // SVG Icon for button
-          const copyIcon = `<svg viewBox="0 0 24 24"><path d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8C6.9 5 6 5.9 6 7v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>`;
-
-          card.innerHTML = `
-                    <div class="card-image-wrapper">
-                        <img src="${item.image}" alt="${item.title}" loading="lazy" onload="this.classList.add('loaded')">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">${item.title}</h3>
-                        <button class="btn copy-btn" data-prompt="${item.prompt}">
-                            ${copyIcon} Copy Prompt
-                        </button>
-                    </div>
-                `;
-
-          // Add event listeners
-          card.addEventListener("click", () => openModal(item));
-
-          const btn = card.querySelector(".copy-btn");
-          btn.addEventListener("click", (e) => {
-            e.stopPropagation(); // Mencegah modal terbuka saat klik tombol copy
-            createRipple(e, btn);
-            copyToClipboard(item.prompt);
-          });
-
-          galleryGrid.appendChild(card);
+        // Buka Modal saat card diklik
+        card.addEventListener("click", (e) => {
+          // Jangan buka modal jika yang diklik adalah tombol copy
+          if (e.target.closest(".copy-btn")) return;
+          openModal(item);
         });
-      }
 
-      // Open Modal
+        // Fungsi Copy untuk tombol di dalam Card
+        const copyBtn = card.querySelector(".copy-btn");
+        copyBtn.addEventListener("click", (e) => {
+          copyToClipboard(item.prompt);
+        });
+
+        grid.appendChild(card);
+      });
+
+      // Fungsi Buka Modal
       function openModal(item) {
-        modalImage.src = item.image;
-        modalImage.alt = item.title;
-        modalTitle.textContent = item.title;
-        modalPromptText.textContent = item.prompt;
+        document.getElementById("mImgBefore").src = item.imgBefore;
+        document.getElementById("mImgAfter").src = item.imgAfter;
+        document.getElementById("mTitle").innerText = item.title;
+        document.getElementById("mPrompt").innerText = item.prompt;
 
-        // Setup Modal Copy Button
-        modalCopyBtn.onclick = (e) => {
-          createRipple(e, modalCopyBtn);
+        // Fungsi Copy untuk tombol di dalam Modal
+        document.getElementById("modalCopyBtn").onclick = () => {
           copyToClipboard(item.prompt);
         };
 
         modalOverlay.classList.add("active");
-        document.body.style.overflow = "hidden"; // Mencegah scroll di background
+        document.body.style.overflow = "hidden"; // Kunci scroll latar belakang
       }
 
-      // Close Modal
+      // Fungsi Tutup Modal
       function closeModal() {
         modalOverlay.classList.remove("active");
-        document.body.style.overflow = "";
+        document.body.style.overflow = ""; // Buka kunci scroll
       }
 
-      // Copy to Clipboard API
+      // Event Listener Tutup Modal
+      modalClose.addEventListener("click", closeModal);
+      modalOverlay.addEventListener("click", (e) => {
+        if (e.target === modalOverlay) closeModal();
+      });
+
+      // Fungsi Salin ke Clipboard
       function copyToClipboard(text) {
         navigator.clipboard
           .writeText(text)
@@ -601,63 +483,18 @@
             showToast();
           })
           .catch((err) => {
-            console.error("Failed to copy: ", err);
-            alert("Gagal menyalin teks. Silakan coba lagi.");
+            alert("Gagal menyalin. Coba lagi.");
           });
       }
 
-      // Show Toast Notification
+      // Fungsi Menampilkan Toast
       function showToast() {
         clearTimeout(toastTimeout);
         toast.classList.add("show");
         toastTimeout = setTimeout(() => {
           toast.classList.remove("show");
-        }, 3000);
+        }, 2500);
       }
-
-      // Ripple Effect Function for Buttons
-      function createRipple(event, button) {
-        const circle = document.createElement("span");
-        const diameter = Math.max(button.clientWidth, button.clientHeight);
-        const radius = diameter / 2;
-
-        const rect = button.getBoundingClientRect();
-
-        circle.style.width = circle.style.height = `${diameter}px`;
-        circle.style.left = `${event.clientX - rect.left - radius}px`;
-        circle.style.top = `${event.clientY - rect.top - radius}px`;
-        circle.classList.add("ripple");
-
-        // Hapus ripple sebelumnya jika ada
-        const existingRipple = button.querySelector(".ripple");
-        if (existingRipple) {
-          existingRipple.remove();
-        }
-
-        button.appendChild(circle);
-      }
-
-      // ==================== EVENT LISTENERS ====================
-
-      // Close modal on 'X' button click
-      modalClose.addEventListener("click", closeModal);
-
-      // Close modal when clicking outside the modal content
-      modalOverlay.addEventListener("click", (e) => {
-        if (e.target === modalOverlay) {
-          closeModal();
-        }
-      });
-
-      // Close modal on 'Escape' key
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && modalOverlay.classList.contains("active")) {
-          closeModal();
-        }
-      });
-
-      // Initialize App
-      document.addEventListener("DOMContentLoaded", renderGallery);
     </script>
   </body>
 </html>
